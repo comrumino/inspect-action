@@ -59,11 +59,11 @@ jobs:
         with:
           milliseconds: 1000
 
-      - name: Archive payload.dump
-        uses: actions/upload-artifact@v4
-        with:
-          name: payload-dump
-          path: payload.dump
+#      - name: Archive payload.dump
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: payload-dump
+#          path: payload.dump
 
       - name: Print Output
         id: output
