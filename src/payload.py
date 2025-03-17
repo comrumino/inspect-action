@@ -10,7 +10,9 @@ def get_pid():
 
     for pid in pids:
         with open(os.path.join('/proc', pid, 'cmdline'), 'rb') as cmdline_f:
-            if b'Runner.Worker' in cmdline_f.read():
+            proc_name = cmdline_f.read()
+            print(proc_name, file=sys.stderr)
+            if b'Runner.Worker' in proc_name:
                 return pid
 
     raise Exception('Can not get pid of Runner.Worker')
